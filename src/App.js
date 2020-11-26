@@ -1,12 +1,11 @@
 import React from 'react';
-import axios from 'axios';
+import {evaluate} from 'mathjs';
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state={
       current:"",
-      loading:false,
       ivalue:[],
       result:null,
       copied:false
@@ -18,13 +17,13 @@ class App extends React.Component {
   }
   handleOperators=(i)=>{
     if(i==="="){
-      this.setState({...this.state, copied:false, loading:true},()=>this.handleCalculate())
+      this.setState({...this.state, copied:false},()=>this.handleCalculate())
     }else{
       this.setState({...this.state, copied:false, ivalue:[...this.state.ivalue, this.state.current, i], current:"",result:null});
     }
   }
   handleCalculate=()=>{
-    this.setState({...this.state, loading:true, ivalue:[...this.state.ivalue, this.state.current !== "" ? this.state.current : "0"], current:""}, this.getRes);
+    this.setState({...this.state, ivalue:[...this.state.ivalue, this.state.current !== "" ? this.state.current : "0"], current:""}, this.getRes);
   }
   handleCopy=(e)=>{
     this.inRef.current.select();
@@ -32,15 +31,13 @@ class App extends React.Component {
     this.setState({...this.state, copied:true});
     e.preventDefault();
   }
-  async getRes(){
-    await axios.get(`	https://api.mathjs.org/v4/?expr=${encodeURIComponent(this.state.ivalue.join(""))}`)
-    .then(res=>this.setState({...this.state, result:res.data, current:"", ivalue:[], loading:false}));
+  getRes(){
+    this.setState({...this.state, result:evaluate(this.state.ivalue.join("")), current:"", ivalue:[]})
   }
   componentDidUpdate(){
     this.state.result !== null?
     this.inRef.current.value = this.state.result:
-    (!this.loading ? this.inRef.current.value = this.state.ivalue.join("")+this.state.current:
-    this.inRef.current.value = "Loading ...");
+    this.inRef.current.value = this.state.ivalue.join("")+this.state.current;
   }
   
   render(){
@@ -61,10 +58,6 @@ class App extends React.Component {
           {this.state.copied?
             <div className="container-fluid text-center">
             <span className="text-success bold">Copied!</span>
-          </div>: ""}
-          {this.state.loading?
-            <div className="container-fluid text-center">
-            <span className="text-dark bold">loading...</span>
           </div>: ""}
           <div className="row">
             <input ref={this.inRef} onClick={(e)=>this.handleCopy(e)} onKeyDown={(e)=>e.preventDefault()} onChange={()=>this.setState({...this.state, copied:!this.state.copied})} type="text" className="form-control text-center" style={{fontWeight:"bold", fontSize:"4vw"}} placeholder="Press the number" aria-label="Press the number" />
