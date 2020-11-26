@@ -32,8 +32,8 @@ class App extends React.Component {
   }
   componentDidUpdate(){
     this.state.result !== null?
-    this.inRef.current.value = this.state.result:
     this.loading ? this.inRef.current.value = "Loading ..." :
+    this.inRef.current.value = this.state.result:
     this.inRef.current.value = this.state.ivalue.join("")+this.state.current;
   }
   
