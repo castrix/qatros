@@ -39,8 +39,8 @@ class App extends React.Component {
   componentDidUpdate(){
     this.state.result !== null?
     this.inRef.current.value = this.state.result:
-    !this.loading ? this.inRef.current.value = this.state.ivalue.join("")+this.state.current:
-    this.inRef.current.value = "Loading ...";
+    (!this.loading ? this.inRef.current.value = this.state.ivalue.join("")+this.state.current:
+    this.inRef.current.value = "Loading ...");
   }
   
   render(){
@@ -48,7 +48,7 @@ class App extends React.Component {
     return (
       <>
       <div className="container-fluid mt-4 text-center">
-        <h1>Qatros Frontend Challenge</h1>
+        <h1>PT Qatros Frontend Challenge</h1>
       </div>
       <div className="container-fluid text-center">
         <h1>CALCULATOR</h1>
