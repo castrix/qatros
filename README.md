@@ -1,3 +1,7 @@
+# Halaman web yang sudah di deploy:
+[Qatros Challenge Calculator](https://castrix.github.io/qatros/)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
