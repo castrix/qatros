@@ -8,33 +8,39 @@ class App extends React.Component {
       current:"",
       loading:false,
       ivalue:[],
-      result:null
+      result:null,
+      copied:false
     }
     this.inRef=React.createRef()
   }
   handleNumber=(i)=>{
-    this.setState({...this.state, current:this.state.current+i, result:null});
-    console.log(this.state);
+    this.setState({...this.state, current:this.state.current+i, result:null, copied:false});
   }
   handleOperators=(i)=>{
     if(i==="="){
-      this.handleCalculate();
+      this.setState({...this.state, copied:false, loading:true},()=>this.handleCalculate())
     }else{
-      this.setState({...this.state, ivalue:[...this.state.ivalue, this.state.current, i], current:"",result:null});
+      this.setState({...this.state, copied:false, ivalue:[...this.state.ivalue, this.state.current, i], current:"",result:null});
     }
   }
   handleCalculate=()=>{
     this.setState({...this.state, loading:true, ivalue:[...this.state.ivalue, this.state.current !== "" ? this.state.current : "0"], current:""}, this.getRes);
   }
+  handleCopy=(e)=>{
+    this.inRef.current.select();
+    document.execCommand("copy");
+    this.setState({...this.state, copied:true});
+    e.preventDefault();
+  }
   async getRes(){
-    await axios.get(`	http://api.mathjs.org/v4/?expr=${encodeURIComponent(this.state.ivalue.join(""))}`)
+    await axios.get(`	https://api.mathjs.org/v4/?expr=${encodeURIComponent(this.state.ivalue.join(""))}`)
     .then(res=>this.setState({...this.state, result:res.data, current:"", ivalue:[], loading:false}));
   }
   componentDidUpdate(){
     this.state.result !== null?
-    this.loading ? this.inRef.current.value = "Loading ..." :
     this.inRef.current.value = this.state.result:
-    this.inRef.current.value = this.state.ivalue.join("")+this.state.current;
+    !this.loading ? this.inRef.current.value = this.state.ivalue.join("")+this.state.current:
+    this.inRef.current.value = "Loading ...";
   }
   
   render(){
@@ -52,8 +58,16 @@ class App extends React.Component {
       </div>
       <div className="row">
         <div className="container" style={{maxWidth:"700px"}}>
+          {this.state.copied?
+            <div className="container-fluid text-center">
+            <span className="text-success bold">Copied!</span>
+          </div>: ""}
+          {this.state.loading?
+            <div className="container-fluid text-center">
+            <span className="text-dark bold">loading...</span>
+          </div>: ""}
           <div className="row">
-            <input ref={this.inRef} type="text" className="form-control text-center" style={{fontWeight:"bold", fontSize:"4vw"}} placeholder="Press the number" aria-label="Press the number" />
+            <input ref={this.inRef} onClick={(e)=>this.handleCopy(e)} onKeyDown={(e)=>e.preventDefault()} onChange={()=>this.setState({...this.state, copied:!this.state.copied})} type="text" className="form-control text-center" style={{fontWeight:"bold", fontSize:"4vw"}} placeholder="Press the number" aria-label="Press the number" />
           </div>
           <div className="row">
             <div className="col">
@@ -77,7 +91,7 @@ class App extends React.Component {
           })}
           </div>
           </div>
-          <div className="col d-flex flex-column" style={{maxWidth:"15%"}}>
+          <div className="col d-flex flex-column p-0" style={{maxWidth:"15%"}}>
             <div className="col text-center mt-1 btn btn-primary" onClick={()=>this.handleOperators("/")}>:</div>
             <div className="col text-center mt-1 btn btn-primary" onClick={()=>this.handleOperators("*")}>x</div>
             <div className="col text-center mt-1 btn btn-primary" onClick={()=>this.handleOperators("+")}>+</div>
