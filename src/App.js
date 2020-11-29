@@ -69,7 +69,7 @@ class App extends React.Component {
         <h3>Oleh: Ihsan Fajar Ramadhan</h3>
       </div>
       <div className="row">
-        <div className="container m-0" style={{maxWidth:"700px"}}>
+        <div className="container" style={{maxWidth:"700px"}}>
           {this.state.copied?
             <div className="container-fluid text-center">
             <span className="text-success bold">Copied!</span>
