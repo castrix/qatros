@@ -78,7 +78,7 @@ class App extends React.Component {
             <input ref={this.inRef} onClick={(e)=>this.handleCopy(e)} onKeyDown={(e)=>e.preventDefault()} onChange={()=>this.setState({...this.state, copied:!this.state.copied})} type="text" className="form-control text-center" style={{fontWeight:"bold", fontSize:"4vw"}} placeholder="Press the number" aria-label="Press the number" />
           </div>
           <div className="row">
-            <div className="col p-0">
+            <div className="col m-0">
             <div className="row">
             <div className="col text-center mr-1 mt-1 btn btn-danger" onClick={()=>this.handleOperators("clear")}>clear</div>
             <div className="col text-center mr-1 mt-1 btn btn-danger" onClick={()=>this.handleOperators("del")}>del</div>
