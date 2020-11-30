@@ -68,7 +68,7 @@ class App extends React.Component {
       </div>
       <div className="container-fluid text-center">
         <h3>By: Ihsan Fajar Ramadhan</h3>
-        <img src="qatros/logo512.png" className="mb-2 mt-2" style={{width:"100px"}} alt="logo" />
+        <img src="logo512.png" className="mb-2 mt-2" style={{width:"100px"}} alt="logo" />
       </div>
       <div className="row">
         <div className="container" style={{maxWidth:"700px"}}>
