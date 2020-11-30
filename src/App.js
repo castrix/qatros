@@ -44,8 +44,8 @@ class App extends React.Component {
     if(this.state.result !== null){
     this.inRef.current.select();
     document.execCommand("copy");
-    this.setState({...this.state, copied:true});
-    e.preventDefault();}
+    this.setState({...this.state, copied:true});}
+    e.preventDefault();
   }
   getRes(){
     this.setState({...this.state, result:evaluate(this.state.ivalue.join("")), current:"", ivalue:[]})
