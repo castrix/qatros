@@ -60,13 +60,13 @@ class App extends React.Component {
     const number=[".",0,"00",1,2,3,4,5,6,7,8,9];
     return (
       <>
-      <div className="container-fluid mt-4 text-center">
+      <div className="container-fluid mt-4 text-center text-white">
         <h1>PT Qatros Frontend Challenge</h1>
       </div>
-      <div className="container-fluid text-center">
+      <div className="container-fluid text-center text-white">
         <h1>SIMPLE CALCULATOR</h1>
       </div>
-      <div className="container-fluid text-center">
+      <div className="container-fluid text-center text-white">
         <h3>By: Ihsan Fajar Ramadhan</h3>
         <img src="logo512.png" className="mb-2 mt-2" style={{width:"100px"}} alt="logo" />
       </div>
@@ -107,7 +107,7 @@ class App extends React.Component {
           </div>
         </div>
       </div>
-      <div className="container-fluid mt-6 text-center">
+      <div className="container-fluid mt-5 text-center text-white">
         <h4>Made with React Js, Bootstrap v4.5, MathJs</h4>
       </div>
       </>
