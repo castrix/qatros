@@ -67,7 +67,8 @@ class App extends React.Component {
         <h1>SIMPLE CALCULATOR</h1>
       </div>
       <div className="container-fluid text-center">
-        <h3>Oleh: Ihsan Fajar Ramadhan</h3>
+        <h3>By: Ihsan Fajar Ramadhan</h3>
+        <img src="qatros/logo512.png" className="mb-2 mt-2" style={{width:"100px"}} alt="logo" />
       </div>
       <div className="row">
         <div className="container" style={{maxWidth:"700px"}}>
@@ -105,6 +106,9 @@ class App extends React.Component {
           </div>
           </div>
         </div>
+      </div>
+      <div className="container-fluid mt-6 text-center">
+        <h4>Made with React Js, Bootstrap v4.5, MathJs</h4>
       </div>
       </>
     );
