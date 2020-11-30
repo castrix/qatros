@@ -26,9 +26,9 @@ class App extends React.Component {
       case "del":
         console.log();
         if(this.state.current !== ""){
-          this.setState({...this.state, current:this.state.current.substr(0,this.state.current.length-1)});
+          this.setState({...this.state, copied:false, current:this.state.current.substr(0,this.state.current.length-1)});
         }else{
-          this.setState({...this.state, current:this.state.result === "null" ? this.state.ivalue[this.state.ivalue.length-1].substr(0,this.state.ivalue[this.state.ivalue.length-1].length-1) : "", ivalue:this.state.ivalue.filter((item,index)=> index !== this.state.ivalue.length-1), result:null});
+          this.setState({...this.state, copied:false, current:this.state.result === "null" ? this.state.ivalue[this.state.ivalue.length-1].substr(0,this.state.ivalue[this.state.ivalue.length-1].length-1) : "", ivalue:this.state.ivalue.filter((item,index)=> index !== this.state.ivalue.length-1), result:null});
         }
         break;
       default:
